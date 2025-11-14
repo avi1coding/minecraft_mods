@@ -6,6 +6,8 @@ const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 // path module to work with file and directory paths
 const path = require('path');
+// load environment variables from .env file
+require('dotenv').config();
 
 
 const app = express();
@@ -20,11 +22,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // create a connection pool to the MySQL database
 const db = mysql.createConnection({
-    host: 'avimehta-avimehta.k.aivencloud.com',
-    user: 'avnadmin',
-    password: process.env.DB_PASSWORD || '<REDACTED>',
-    database: 'minecraft_mods',
-    port: 18649,
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT,
     ssl: {
         rejectUnauthorized: false
     }
